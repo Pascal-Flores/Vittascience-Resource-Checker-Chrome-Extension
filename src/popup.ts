@@ -21,6 +21,6 @@ async function getCurrentTab() : Promise<chrome.tabs.Tab> {
 }
 
 async function getAllResources() {
-    console.log("aaaaa")
-    chrome.tabs.sendMessage((await getCurrentTab()).id!, Action.getAllResources)
+    const resources = await chrome.tabs.sendMessage((await getCurrentTab()).id!, Action.getAllResources)
+    alert(`${resources.length} ressources ont été trouvées.`)
 }
