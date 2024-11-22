@@ -1,0 +1,20 @@
+{
+    "name": "Vittascience Resource Checker",
+    "description": "A chrome extension that checks pedagogical ressources from the Vittascience's website looking for dead image links and other various things",
+    "version": "0.1",
+    "manifest_version": 3,
+    "permissions": [
+       "activeTab",
+       "scripting",
+       "downloads"
+    ],
+    "content_scripts" : [
+        {
+            "matches" : ["https://*.vittascience.com/learn/*"],
+            "js" : ["dist/content.js"]
+        }
+    ],
+    "action": {
+        "default_popup" : "public/html/popup.html"
+    }
+ }
