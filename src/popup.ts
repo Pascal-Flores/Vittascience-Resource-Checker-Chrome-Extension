@@ -1,14 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    chrome.tabs.query({active: true, currentWindow : true}).then((tabs : chrome.tabs.Tab[]) => {
-        let tabUrl = tabs[0].url;
-        let popupContent = ""
-        if (tabUrl?.match(/https:\/\/.*\.vittascience\.com\/learn.*/gm)?.length != null) {
-            popupContent = "La page est supportée youhou"
-        }
-        else {
-            popupContent = "La page n'est pas supportée. C'est trop triste"
-        }
-        document.querySelector("#popup-content")!.innerHTML = popupContent
+import { Action } from "./modules/Action";
 
-    });
+document.addEventListener("DOMContentLoaded", async () => {
+    let tabUrl = (await getCurrentTab()).url!
+    if (tabUrl?.match(/https:\/\/.*\.vittascience\.com\/learn.*/gm)?.length != null) {
+        document.querySelector("#popup-content")!.innerHTML = `
+        <button id="scan">Lancer un scan des ressources</button>`
+        document.querySelector("#scan")?.addEventListener("click", getAllResources)
+    }
+    else {
+        document.querySelector("#popup-content")!.innerHTML = `
+        <p>La page n'est pas supportée. Pour réaliser un check des ressources, veuillez vous rendre sur la page suivante :</p>
+        <br/>
+        <a href="https://vittascience.com/learn/" target="_blank">Centre de ressources de Vittascience</a>`
+    }
+
 })
+
+async function getCurrentTab() : Promise<chrome.tabs.Tab> {
+    return (await chrome.tabs.query({active:true, currentWindow:true}))[0]
+}
+
+async function getAllResources() {
+    console.log("aaaaa")
+    chrome.tabs.sendMessage((await getCurrentTab()).id!, Action.getAllResources)
+}
