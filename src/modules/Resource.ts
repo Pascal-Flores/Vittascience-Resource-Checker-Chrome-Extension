@@ -22,21 +22,20 @@ export type Resource = {
 }
 
 export type Fork = {
-    id : number,
-    user : User,
+    id              : number,
+    user            : User,
 
 }
 export type Timestamp = {
-    date : string
-    timezone_type : number,
-    timezone : string
+    date            : string
+    timezone_type   : number,
+    timezone        : string
 }
 
 export type User = {
-    id : number,
-    firstname : string,
-    surname : string,
-    picture : string,
-    pseudo : string
-
+    id              : number,
+    firstname       : string,
+    surname         : string,
+    picture         : string,
+    pseudo          : string
 }
