@@ -1,3 +1,7 @@
 export enum Action {
-    getAllResources
+    getAllResources,
+    checkResource,
+    toggleLoggingMode,
+    getLoggingMode,
+    checkAllResources
 }
